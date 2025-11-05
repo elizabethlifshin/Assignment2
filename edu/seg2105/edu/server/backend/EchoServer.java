@@ -36,7 +36,7 @@ public class EchoServer extends AbstractServer
     super(port);
   }
 
-  
+   
   //Instance methods ************************************************
   
   /**
@@ -66,12 +66,21 @@ public class EchoServer extends AbstractServer
    * This method overrides the one in the superclass.  Called
    * when the server stops listening for connections.
    */
+  @Override
   protected void serverStopped()
   {
     System.out.println
       ("Server has stopped listening for connections.");
   }
   
+  @Override
+  protected void clientConnected(ConnectionToClient client) {
+	System.out.println("Connected");
+  }
+  @Override
+  synchronized protected void clientDisconnected(ConnectionToClient client) {
+	System.out.println("Disconnected");
+  } 
   
   //Class methods ***************************************************
   
@@ -100,7 +109,7 @@ public class EchoServer extends AbstractServer
     try 
     {
       sv.listen(); //Start listening for connections
-    } 
+    }  
     catch (Exception ex) 
     {
       System.out.println("ERROR - Could not listen for clients!");
